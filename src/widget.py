@@ -1,4 +1,4 @@
-from masks import get_mask_card_number, get_mask_account
+from src.masks import get_mask_card_number, get_mask_account
 
 
 def mask_account_card(data: str) -> str:
@@ -11,7 +11,7 @@ def mask_account_card(data: str) -> str:
 
     # Отделяем номер (он всегда в конце строки)
     parts = data.split()
-    number = int(parts[-1]) #преобразовал в int, потому что masks.py ожидает int
+    number = int(parts[-1])  # преобразовал в int, потому что masks.py ожидает int
     name = " ".join(parts[:-1])
 
     # Если это счет
@@ -37,4 +37,3 @@ def get_date(date_string: str) -> str:
     year, month, day = date_part.split("-")
 
     return f"{day}.{month}.{year}"
-
