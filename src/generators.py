@@ -32,3 +32,26 @@ def transaction_descriptions(
     """
     for transaction in transactions:
         yield transaction.get("description", "")
+
+
+def card_number_generator(start: int, stop: int) -> Iterator[str]:
+    """
+    Generator that yields card numbers in format XXXX XXXX XXXX XXXX.
+
+    :param start: start number (inclusive)
+    :param stop: stop number (inclusive)
+    :return: iterator of formatted card numbers
+    """
+    for number in range(start, stop + 1):
+        # превращаем число в строку длиной 16 символов с ведущими нулями
+        card_number = f"{number:016d}"
+
+        # разбиваем на группы по 4
+        formatted = (
+            f"{card_number[0:4]} "
+            f"{card_number[4:8]} "
+            f"{card_number[8:12]} "
+            f"{card_number[12:16]}"
+        )
+
+        yield formatted
