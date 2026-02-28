@@ -2,11 +2,7 @@ from typing import Any, Iterator
 
 import pytest
 
-from src.generators import (
-    card_number_generator,
-    filter_by_currency,
-    transaction_descriptions,
-)
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 def test_filter_by_currency_usd(transactions_fixture: list[dict[str, Any]]) -> None:
@@ -58,10 +54,14 @@ def test_card_number_generator() -> None:
     "start, stop, expected",
     [
         (1, 1, ["0000 0000 0000 0001"]),
-        (9999, 10000, [
-            "0000 0000 0000 9999",
-            "0000 0000 0001 0000",
-        ]),
+        (
+            9999,
+            10000,
+            [
+                "0000 0000 0000 9999",
+                "0000 0000 0001 0000",
+            ],
+        ),
     ],
 )
 def test_card_number_generator_parametrized(
