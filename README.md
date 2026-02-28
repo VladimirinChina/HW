@@ -42,6 +42,13 @@ sorted_operations = sort_by_date(operations)
 poetry run flake8 .
 poetry run mypy .
 ```
+## Testing
+Running tests:
+poetry run pytest
+
+Checking the coverage:
+poetry run pytest --cov=src --cov-report=html
+
 ## Documentation
 
 All functions include docstrings describing parameters and return values.
