@@ -19,3 +19,16 @@ def filter_by_currency(
             .get("code") == currency_code
         ):
             yield transaction
+
+
+def transaction_descriptions(
+    transactions: List[Dict[str, Any]]
+) -> Iterator[str]:
+    """
+    Generator that yields transaction descriptions.
+
+    :param transactions: List of transaction dictionaries
+    :return: Iterator of descriptions
+    """
+    for transaction in transactions:
+        yield transaction.get("description", "")
