@@ -8,6 +8,7 @@ from src.generators import (
     transaction_descriptions,
 )
 
+
 def test_filter_by_currency_usd(transactions_fixture: list[dict[str, Any]]) -> None:
     generator: Iterator[dict[str, Any]] = filter_by_currency(transactions_fixture, "USD")
 
@@ -18,12 +19,14 @@ def test_filter_by_currency_usd(transactions_fixture: list[dict[str, Any]]) -> N
     for transaction in results:
         assert transaction["operationAmount"]["currency"]["code"] == "USD"
 
+
 def test_filter_by_currency_empty(transactions_fixture: list[dict[str, Any]]) -> None:
     generator = filter_by_currency(transactions_fixture, "EUR")
 
     results = list(generator)
 
     assert results == []
+
 
 def test_transaction_descriptions(transactions_fixture: list[dict[str, Any]]) -> None:
     generator = transaction_descriptions(transactions_fixture)
@@ -38,6 +41,7 @@ def test_transaction_descriptions(transactions_fixture: list[dict[str, Any]]) ->
         "Перевод организации",
     ]
 
+
 def test_card_number_generator() -> None:
     generator = card_number_generator(1, 3)
 
@@ -48,6 +52,7 @@ def test_card_number_generator() -> None:
         "0000 0000 0000 0002",
         "0000 0000 0000 0003",
     ]
+
 
 @pytest.mark.parametrize(
     "start, stop, expected",

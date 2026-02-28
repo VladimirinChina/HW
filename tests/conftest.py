@@ -1,10 +1,10 @@
-from typing import Dict, List
+from typing import Any
 
 import pytest
 
 
 @pytest.fixture
-def operations() -> List[Dict[str, str | int]]:
+def operations() -> list[dict[str, Any]]:
     return [
         {"id": 1, "state": "EXECUTED", "date": "2023-01-01"},
         {"id": 2, "state": "PENDING", "date": "2023-02-01"},
@@ -13,7 +13,7 @@ def operations() -> List[Dict[str, str | int]]:
 
 
 @pytest.fixture
-def transactions_fixture() -> list[dict[str, str | int]]:
+def transactions_fixture() -> list[dict[str, Any]]:
     return [
         {
             "id": 939719570,
