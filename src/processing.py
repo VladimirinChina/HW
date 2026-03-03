@@ -1,10 +1,7 @@
 from typing import Any
 
 
-def filter_by_state(
-    operations: list[dict[str, Any]],
-    state: str = "EXECUTED"
-) -> list[dict[str, Any]]:
+def filter_by_state(operations: list[dict[str, Any]], state: str = "EXECUTED") -> list[dict[str, Any]]:
     """
     Возвращает список операций, отфильтрованных по значению ключа 'state'.
 
@@ -17,10 +14,7 @@ def filter_by_state(
     return [operation for operation in operations if operation.get("state") == state]
 
 
-def sort_by_date(
-    operations: list[dict[str, Any]],
-    reverse: bool = True
-) -> list[dict[str, Any]]:
+def sort_by_date(operations: list[dict[str, Any]], reverse: bool = True) -> list[dict[str, Any]]:
     """
     Возвращает новый список операций, отсортированных по ключу 'date'.
 

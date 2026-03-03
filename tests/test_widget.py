@@ -17,8 +17,8 @@ from src.widget import get_date, mask_account_card
     ],
 )
 def test_mask_account_card_card(
-        input_data: str,
-        expected: str,
+    input_data: str,
+    expected: str,
 ) -> None:
     assert mask_account_card(input_data) == expected
 

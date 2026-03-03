@@ -33,6 +33,90 @@ operations = [
 filtered_operations = filter_by_state(operations)
 sorted_operations = sort_by_date(operations)
 
+## Generators module
+The generators.py module contains generator functions for working with transaction
+data and generating card numbers. Generators allow efficient iteration without loading
+all data into memory at once.
+
+Functions
+1. filter_by_currency
+
+Filters transactions by currency code.
+Parameters:
+transactions — list of transaction dictionaries
+currency_code — currency code to filter (e.g., "USD")
+
+Returns:
+Iterator of transactions matching the specified currency
+
+Example:
+
+from src.generators import filter_by_currency
+
+transactions = [
+    {
+        "operationAmount": {
+            "currency": {"code": "USD"}
+        },
+        "description": "Payment in USD"
+    },
+    {
+        "operationAmount": {
+            "currency": {"code": "RUB"}
+        },
+        "description": "Payment in RUB"
+    }
+]
+
+usd_transactions = filter_by_currency(transactions, "USD")
+
+for transaction in usd_transactions:
+    print(transaction["description"])
+
+2. transaction_descriptions
+
+Returns descriptions of all transactions.
+Parameters:
+transactions — list of transaction dictionaries
+
+Returns:
+Iterator of description strings
+
+Example:
+
+from src.generators import transaction_descriptions
+
+transactions = [
+    {"description": "Transfer to account"},
+    {"description": "Card payment"}
+]
+
+descriptions = transaction_descriptions(transactions)
+
+for desc in descriptions:
+    print(desc)
+
+3. card_number_generator
+
+Generates card numbers in the format:
+XXXX XXXX XXXX XXXX
+
+Parameters:
+start — starting number (inclusive)
+stop — ending number (inclusive)
+
+Returns:
+Iterator of formatted card numbers
+
+Example:
+
+from src.generators import card_number_generator
+
+generator = card_number_generator(1, 3)
+
+for card in generator:
+    print(card)
+
 ## Code Quality
 1. The project uses:
 - flake8 for style checking
