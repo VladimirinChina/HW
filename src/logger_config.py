@@ -15,7 +15,7 @@ def setup_logger(name: str) -> logging.Logger:
     log_file = logs_dir / f"{name}.log"
 
     logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
     # чтобы не дублировались хендлеры
     if logger.handlers:
