@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast
 
 import pandas as pd
 
@@ -19,7 +19,8 @@ def read_csv(file_path: str) -> list[dict[str, Any]]:
         if df.empty:
             return []
 
-        return df.to_dict(orient="records")
+        result = df.to_dict(orient="records")
+        return cast(list[dict[str, Any]], result)
 
     except (FileNotFoundError, pd.errors.EmptyDataError):
         return []
@@ -39,7 +40,8 @@ def read_excel(file_path: str) -> list[dict[str, Any]]:
         if df.empty:
             return []
 
-        return df.to_dict(orient="records")
+        result = df.to_dict(orient="records")
+        return cast(list[dict[str, Any]], result)
 
     except (FileNotFoundError, ValueError):
         return []
