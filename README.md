@@ -136,3 +136,13 @@ poetry run pytest --cov=src --cov-report=html
 ## Documentation
 
 All functions include docstrings describing parameters and return values.
+
+## Working with CSV and Excel
+
+The `readers.py` module has been added, which allows you to:
+
+- read data from CSV files (`read_csv`)
+- read data from Excel files (`read_excel`)
+
+Both functions return a list of dictionaries with transactions.
+If errors occur or the file is empty, an empty list is returned.
