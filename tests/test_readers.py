@@ -1,45 +1,59 @@
 from __future__ import annotations
 
-from typing import Any
+from unittest.mock import patch
 
 import pandas as pd
 
-
-def read_csv(file_path: str) -> list[dict[str, Any]]:
-    """
-    Считывает финансовые операции из CSV файла.
-
-    :param file_path: путь к CSV файлу
-    :return: список словарей с транзакциями
-    """
-
-    try:
-        df = pd.read_csv(file_path)
-
-        if df.empty:
-            return []
-
-        return df.to_dict(orient="records")
-
-    except (FileNotFoundError, pd.errors.EmptyDataError):
-        return []
+from src.readers import read_csv, read_excel
 
 
-def read_excel(file_path: str) -> list[dict[str, Any]]:
-    """
-    Считывает финансовые операции из Excel файла.
+def test_read_csv_success() -> None:
+    data = [{"id": 1}, {"id": 2}]
+    df = pd.DataFrame(data)
 
-    :param file_path: путь к Excel файлу
-    :return: список словарей с транзакциями
-    """
+    with patch("pandas.read_csv", return_value=df):
+        result = read_csv("fake.csv")
 
-    try:
-        df = pd.read_excel(file_path)
+    assert result == data
 
-        if df.empty:
-            return []
 
-        return df.to_dict(orient="records")
+def test_read_csv_empty() -> None:
+    df = pd.DataFrame()
 
-    except (FileNotFoundError, ValueError):
-        return []
+    with patch("pandas.read_csv", return_value=df):
+        result = read_csv("fake.csv")
+
+    assert result == []
+
+
+def test_read_csv_file_not_found() -> None:
+    with patch("pandas.read_csv", side_effect=FileNotFoundError):
+        result = read_csv("fake.csv")
+
+    assert result == []
+
+
+def test_read_excel_success() -> None:
+    data = [{"id": 1}, {"id": 2}]
+    df = pd.DataFrame(data)
+
+    with patch("pandas.read_excel", return_value=df):
+        result = read_excel("fake.xlsx")
+
+    assert result == data
+
+
+def test_read_excel_empty() -> None:
+    df = pd.DataFrame()
+
+    with patch("pandas.read_excel", return_value=df):
+        result = read_excel("fake.xlsx")
+
+    assert result == []
+
+
+def test_read_excel_file_not_found() -> None:
+    with patch("pandas.read_excel", side_effect=FileNotFoundError):
+        result = read_excel("fake.xlsx")
+
+    assert result == []
