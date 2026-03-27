@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+from collections import Counter
 from typing import Any
 
 
@@ -21,7 +22,7 @@ def process_bank_search(
     return [
         item
         for item in data
-        if pattern.search(item.get("description", ""))
+        if pattern.search(str(item.get("description", "")))
     ]
 
 
@@ -37,13 +38,16 @@ def process_bank_operations(
     :return: словарь {категория: количество}
     """
 
-    result = {category: 0 for category in categories}
+    descriptions = [
+        str(item.get("description", "")).lower()
+        for item in data
+    ]
 
-    for item in data:
-        description = item.get("description", "")
+    counter: Counter[str] = Counter()
 
+    for description in descriptions:
         for category in categories:
-            if category.lower() in description.lower():
-                result[category] += 1
+            if category.lower() in description:
+                counter[category] += 1
 
-    return result
+    return dict(counter)
