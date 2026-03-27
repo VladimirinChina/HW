@@ -20,7 +20,7 @@ def format_transaction(op: dict[str, Any]) -> str:
 
     result_lines = [f"{date} {description}"]
 
-    if from_acc:
+    if isinstance(from_acc, str) and isinstance(to_acc, str):
         if "Счет" in from_acc:
             masked_from = get_mask_account(int(from_acc.split()[-1]))
         else:
@@ -32,8 +32,9 @@ def format_transaction(op: dict[str, Any]) -> str:
             masked_to = get_mask_card_number(int(to_acc.split()[-1]))
 
         result_lines.append(f"{masked_from} -> {masked_to}")
-    else:
-        if to_acc and "Счет" in to_acc:
+
+    elif isinstance(to_acc, str):
+        if "Счет" in to_acc:
             masked_to = get_mask_account(int(to_acc.split()[-1]))
             result_lines.append(masked_to)
 
@@ -95,9 +96,7 @@ def main() -> None:
     if input("Только RUB? да/нет\n").lower() == "да":
         filtered = [
             op for op in filtered
-            if op.get("operationAmount", {})
-               .get("currency", {})
-               .get("code") == "RUB"
+            if op.get("operationAmount", {}).get("currency", {}).get("code") == "RUB"
         ]
 
     # --- поиск ---
