@@ -50,4 +50,4 @@ def process_bank_operations(
             if category.lower() in description:
                 counter[category] += 1
 
-    return dict(counter)
+    return {category: counter.get(category, 0) for category in categories}
