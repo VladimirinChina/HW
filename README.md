@@ -146,3 +146,47 @@ The `readers.py` module has been added, which allows you to:
 
 Both functions return a list of dictionaries with transactions.
 If errors occur or the file is empty, an empty list is returned.
+
+## Transaction Search
+
+A function has been implemented to search transactions by description using
+regular expressions.
+
+process_bank_search(data, search)
+
+Features:
+
+- Accepts a list of transactions and a search string
+- Uses the re module for pattern matching
+- Case-insensitive search
+- Returns a filtered list of matching transactions
+
+## Transaction Category Counting
+
+A function has been added to count transactions by categories.
+
+process_bank_operations(data, categories)
+
+Features:
+
+- Accepts a list of transactions and a list of categories
+- Uses collections.Counter for counting
+- Matches categories against transaction descriptions
+- Returns a dictionary where:
+keys = category names,
+values = number of matching transactions
+
+Note:
+All provided categories are included in the result, 
+even if no transactions match them (count = 0).
+
+## CLI Interface
+
+The main module provides an interactive command-line interface:
+
+- Select data source (JSON / CSV / XLSX)
+- Filter transactions by status
+- Sort transactions by date
+- Filter by currency (RUB only)
+- Search transactions by description
+- Display formatted results
